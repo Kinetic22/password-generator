@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контактна інформація та форма зворотного зв'язку.">
+    <meta property="og:title" content="Контакти - Генератор паролів">
+    <meta property="og:description" content="Зв'яжіться з нами для пропозицій та питань.">
+    <title>Контакти</title>
+    <style>
+        .active {
+            font-weight: bold;
+            text-decoration: underline;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Генератор паролів</h1>
+        <nav>
+            <ul>
+                <li><a href="catalog.html">Що таке генератор паролів?</a></li>
+                <li><a href="index.html">Згенерувати пароль</a></li>
+                <li><a href="contacts.html" class="active">Контакти</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Зв'яжіться з нами</h2>
+            <p>Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
+            
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Форма зворотного зв'язку</legend>
+                    <label for="user-name">Ім'я:</label><br>
+                    <input type="text" id="user-name" name="name" required><br><br>
+                    <label for="user-email">Email:</label><br>
+                    <input type="email" id="user-email" name="email" required><br><br>
+                    <label for="user-phone">Телефон (+380...):</label><br>
+                    <input type="tel" id="user-phone" name="phone" pattern="^\+380\d{9}$" required title="Введіть номер у форматі +380XXXXXXXXX"><br><br>
+                    <label for="message">Повідомлення:</label><br>
+                    <textarea id="message" name="message" rows="4" cols="30" required></textarea><br><br>
+                    <button type="submit">Відправити</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Усі права захищені.</p>
+    </footer>
+</body>
+</html>
