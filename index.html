@@ -7,27 +7,7 @@
     <meta property="og:title" content="Генератор паролів">
     <meta property="og:description" content="Інструмент для створення надійних паролів">
     <title>Генератор паролів</title>
-    <style>
-        /* виділення активної сторінки */
-        .active {
-            font-weight: bold;
-            text-decoration: underline;
-            color: #d9534f;
-        }
-        #result-container {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            display: none;
-        }
-        #generated-password {
-            font-size: 1.2em;
-            font-family: monospace;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -46,84 +26,97 @@
             <form id="password-form">
                 <fieldset>
                     <legend>Параметри складності</legend>
-                    <label for="pwd-length">Довжина (від 4 до 64):</label>
-                    <input type="number" id="pwd-length" name="length" min="4" max="64" value="12" required><br><br>
-                    <label><input type="checkbox" id="uppercase" name="uppercase" checked> Великі літери</label><br>
-                    <label><input type="checkbox" id="numbers" name="numbers" checked> Цифри</label><br>
-                    <label><input type="checkbox" id="symbols" name="symbols"> Спецсимволи</label><br><br>
-                    <label>Тип генерації:</label><br>
-                    <label><input type="radio" name="type" value="random" checked> Випадковий</label><br><br>
-                    <label for="preset">Пресет:</label>
-                    <select id="preset" name="preset">
-                        <optgroup label="Стандартні">
-                            <option value="weak">Слабкий</option>
-                            <option value="strong" selected>Надійний</option>
-                        </optgroup>
-                        <optgroup label="Спеціальні">
-                            <option value="pin">PIN-код (тільки цифри)</option>
-                        </optgroup>
-                    </select><br><br>
+                    
+                    <div class="form-group">
+                        <label for="pwd-length">Довжина (від 4 до 64):</label>
+                        <input type="number" id="pwd-length" name="length" min="4" max="64" value="12" required>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label><input type="checkbox" id="uppercase" name="uppercase" checked> Великі літери</label>
+                        <label><input type="checkbox" id="numbers" name="numbers" checked> Цифри</label>
+                        <label><input type="checkbox" id="symbols" name="symbols"> Спецсимволи</label>
+                    </div>
+
+                    <div class="form-group radio-group">
+                        <label>Тип генерації:</label>
+                        <label><input type="radio" name="type" value="random" checked> Випадковий</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preset">Пресет:</label>
+                        <select id="preset" name="preset">
+                            <optgroup label="Стандартні">
+                                <option value="weak">Слабкий</option>
+                                <option value="strong" selected>Надійний</option>
+                            </optgroup>
+                            <optgroup label="Спеціальні">
+                                <option value="pin">PIN-код (тільки цифри)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
                     <button type="button" id="generate-btn">Згенерувати пароль</button>
+                    
                     <div id="result-container">
                         Ваш пароль: <span id="generated-password"></span>
                     </div>
                 </fieldset>
             </form>
         </section>
+        
         <section>
             <h2>Порівняння надійності</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Довжина</th>
-                        <th>Склад символів</th>
-                        <th>Орієнтовний час злому</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>8</td>
-                        <td>Тільки літери</td>
-                        <td>Миттєво</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">12</td>
-                        <td>Літери + Цифри</td>
-                        <td>2 тижні</td>
-                    </tr>
-                    <tr>
-                        <td>Літери + Цифри + Символи</td>
-                        <td>34 000 років</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">Дані наведені для ознайомлення згідно з дослідженнями кібербезпеки.</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Довжина</th>
+                            <th>Склад символів</th>
+                            <th>Орієнтовний час злому</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>Тільки літери</td>
+                            <td>Миттєво</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">12</td>
+                            <td>Літери + Цифри</td>
+                            <td>2 тижні</td>
+                        </tr>
+                        <tr>
+                            <td>Літери + Цифри + Символи</td>
+                            <td>34 000 років</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2026 Усі права захищені.</p>
     </footer>
-<script>
+
+    <script>
         document.getElementById('generate-btn').addEventListener('click', function() {
             const length = document.getElementById('pwd-length').value;
             const includeUppercase = document.getElementById('uppercase').checked;
             const includeNumbers = document.getElementById('numbers').checked;
             const includeSymbols = document.getElementById('symbols').checked;
-            const preset = document.getElementById('preset').value; // значення пресету
+            const preset = document.getElementById('preset').value; 
             const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
             const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const numberChars = "0123456789";
             const symbolChars = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
             let allowedChars = "";
-            //PIN-код тільки цифри
+            
             if (preset === "pin") {
                 allowedChars = numberChars;
             } else {
-                allowedChars = lowercaseChars; // малі літери є завжди
+                allowedChars = lowercaseChars; 
                 if (includeUppercase) allowedChars += uppercaseChars;
                 if (includeNumbers) allowedChars += numberChars;
                 if (includeSymbols) allowedChars += symbolChars;
@@ -133,7 +126,7 @@
                 const randomIndex = Math.floor(Math.random() * allowedChars.length);
                 password += allowedChars[randomIndex];
             }
-            // вивід
+            
             document.getElementById('generated-password').textContent = password;
             document.getElementById('result-container').style.display = 'block';
         });
