@@ -7,55 +7,113 @@
     <meta property="og:title" content="Контакти - Генератор паролів">
     <meta property="og:description" content="Зв'яжіться з нами для пропозицій та питань.">
     <title>Контакти</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
 </head>
 <body>
     <header>
-        <h1>Генератор паролів</h1>
-        <nav>
+        <div class="header-top">
+            <h1>Генератор паролів</h1>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
+                <label for="menu-toggle" class="menu-burger">
+                    <span></span><span></span><span></span>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
+        
+        <nav class="main-nav">
             <ul>
                 <li><a href="catalog.html">Що таке генератор паролів?</a></li>
                 <li><a href="index.html">Згенерувати пароль</a></li>
                 <li><a href="contacts.html" class="active">Контакти</a></li>
             </ul>
         </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Зв'яжіться з нами</h2>
-            <p>Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
-            
-            <form action="#" method="POST">
-                <fieldset>
-                    <legend>Форма зворотного зв'язку</legend>
-                    
-                    <div class="form-group">
-                        <label for="user-name">Ім'я:</label>
-                        <input type="text" id="user-name" name="name" required placeholder="Введіть ваше ім'я">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="user-email">Email:</label>
-                        <input type="email" id="user-email" name="email" required placeholder="example@gmail.com">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="user-phone">Телефон (+380...):</label>
-                        <input type="tel" id="user-phone" name="phone" pattern="^\+380\d{9}$" required title="Введіть номер у форматі +380XXXXXXXXX" placeholder="+380...">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Повідомлення:</label>
-                        <textarea id="message" name="message" rows="4" required placeholder="Напишіть ваше повідомлення тут..."></textarea>
-                    </div>
-                    
-                    <button type="submit">Відправити</button>
-                </fieldset>
-            </form>
-        </section>
-    </main>
+    </header> 
+    
+    <div class="wrapper">
+        <main>
+            <section>
+                <h2>Зв'яжіться з нами</h2>
+                <p>Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
+                
+                <form action="#" method="POST">
+                    <fieldset>
+                        <legend>Форма зворотного зв'язку</legend>
+                        
+                        <div class="form-group">
+                            <label for="user-name">Ім'я:</label>
+                            <input type="text" id="user-name" name="name" required placeholder="Введіть ваше ім'я">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="user-email">Email:</label>
+                            <input type="email" id="user-email" name="email" required placeholder="example@gmail.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="user-phone">Телефон (+380...):</label>
+                            <input type="tel" id="user-phone" name="phone" pattern="^\+380\d{9}$" required title="Введіть номер у форматі +380XXXXXXXXX" placeholder="+380...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Повідомлення:</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Напишіть ваше повідомлення тут..."></textarea>
+                        </div>
+                        
+                        <button type="submit">Відправити</button>
+                    </fieldset>
+                </form>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <h3>Інші канали зв'язку</h3>
+            <p><strong>Email:</strong> support@passwordgen.ua</p>
+            <p><strong>Робочі години:</strong> Пн - Пт, 10:00 - 18:00</p>
+        </aside>
+    </div> 
+    
     <footer>
-        <p>&copy; 2026 Усі права захищені.</p>
+        <div class="footer-content">
+            <p>&copy; 2026 Усі права захищені.</p>
+            <div class="socials">
+                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            </div>
+        </div>
     </footer>
+    
+    <script>
+//скрипт для теми(працює разом з @media prefers-color-scheme
+        const themeBtn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+        
+        // збережений вибір користувача
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        themeBtn.addEventListener('click', function() {
+            // чи активна темна тема або через систему або через наш клас
+            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
+
+            if (isDark) {
+                // вмикаємо світлу
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // вмикаємо темну
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
