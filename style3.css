@@ -1,7 +1,7 @@
 /* 1. ЗМІННІ ДЛЯ ТЕМ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap');
 
-/* --- БАЗОВА СВІТЛА ТЕМА --- */
+/* БАЗОВА СВІТЛА ТЕМА */
 :root {
     --bg-main: #f4f7f9;
     --bg-surface: #ffffff;
