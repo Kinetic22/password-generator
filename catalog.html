@@ -7,57 +7,143 @@
     <meta property="og:title" content="Інформація про генератор паролів">
     <meta property="og:description" content="Дізнайтеся, чому важливо використовувати складні паролі.">
     <title>Що таке генератор паролів?</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
 </head>
 <body>
     <header>
-        <h1>Генератор паролів</h1>
-        <nav>
-            <ul>                
+        <div class="header-top">
+            <h1>Генератор паролів</h1>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
+                <label for="menu-toggle" class="menu-burger">
+                    <span></span><span></span><span></span>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
+        
+        <nav class="main-nav">
+            <ul>
                 <li><a href="catalog.html" class="active">Що таке генератор паролів?</a></li>
                 <li><a href="index.html">Згенерувати пароль</a></li>
                 <li><a href="contacts.html">Контакти</a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <section>
-            <h2>Про генератор паролів</h2>
-            <p><strong>Генератор паролів</strong> — це інструмент, який автоматично створює складні та унікальні комбінації символів (літер, цифр, спецсимволів) для максимального захисту ваших акаунтів від злому.</p>
-            
-            <h3>Захищайте ваш пароль!</h3>
-            <picture>
-                <source srcset="password-lock.webp" type="image/webp">
-                <img src="password-lock.png" alt="Блакитний замок із зашифрованим паролем">
-            </picture>
-            
-            <h4>Функціонал та переваги</h4>
+    
+    <div class="wrapper">
+        <main>
+            <section>
+                <h2>Про генератор паролів</h2>
+                <p><strong>Генератор паролів</strong> — це інструмент, який автоматично створює складні та унікальні комбінації символів (літер, цифр, спецсимволів) для максимального захисту ваших акаунтів від злому.</p>
+                
+                <h3>Захищайте ваш пароль!</h3>
+                <picture>
+                    <source srcset="password-lock.webp" type="image/webp">
+                    <img src="password-lock.png" alt="Блакитний замок із зашифрованим паролем">
+                </picture>
+                
+                <h4>Функціонал та переваги</h4>
+                <ul>
+                    <li><strong>Надійність:</strong> Паролі, створені випадковим чином за допомогою алгоритмів, стійкі до підбору.</li>
+                    <li><strong>Гнучкі налаштування:</strong> Ви можете самостійно обирати, з чого складатиметься пароль.</li>
+                    <li><strong>Унікальність:</strong> Дозволяє легко створювати абсолютно різні паролі.</li>
+                </ul>
+                
+                <h5>Чому важливо створювати надійні паролі?</h5>
+                <iframe width="100%" height="315" 
+                    src="https://www.youtube-nocookie.com/embed/YitHISP0Isk" 
+                    title="YouTube video player" 
+                    style="border: none; border-radius: 8px;" 
+                    loading="lazy" 
+                    srcdoc="<style>body{margin:0;height:100vh;background:#222;display:flex;justify-content:center;align-items:center;font-family:sans-serif;} a{color:#fff;text-decoration:none;font-size:22px;background:#c00;padding:15px 30px;border-radius:8px;transition:0.3s;} a:hover{background:#f00;}</style><a href='https://www.youtube-nocookie.com/embed/YitHISP0Isk?autoplay=1'>▶️ Навіщо надійний пароль?</a>" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+                
+                <h6 style="margin-top: 20px;">Аудіо-інструкція: Як створити пароль</h6>
+                <audio controls style="display: block; width: 100%; margin-top: 10px;">
+                    <source src="audio-guide.mp3" type="audio/mpeg">
+                    Ваш браузер не підтримує аудіо елемент.
+                </audio>
+            </section>
+
+            <section class="catalog-grid">
+                <h2>Каталог: Приклади надійності</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <h3>Базовий</h3>
+                        <p>8 символів. Тільки літери.</p>
+                        <strong>xmplpswd</strong>
+                    </div>
+                    <div class="card">
+                        <h3>Стандарт</h3>
+                        <p>12 символів. Літери + цифри.</p>
+                        <strong>xMpl92psWd74</strong>
+                    </div>
+                    <div class="card">
+                        <h3>Надійний</h3>
+                        <p>16 символів. Зі спецсимволами.</p>
+                        <strong>xMpl92!psWd#74kL</strong>
+                    </div>
+                    <div class="card">
+                        <h3>Ультра</h3>
+                        <p>24+ символів. Максимальний захист.</p>
+                        <strong>xM!92pWd#74kL&vB5*zQ^1mX</strong>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <h3>Корисні посилання</h3>
             <ul>
-                <li><strong>Надійність:</strong> Паролі, створені випадковим чином за допомогою алгоритмів, стійкі до підбору.</li>
-                <li><strong>Гнучкі налаштування:</strong> Ви можете самостійно обирати, з чого складатиметься пароль.</li>
-                <li><strong>Унікальність:</strong> Дозволяє легко створювати абсолютно різні паролі.</li>
+                <li><a href="https://cyberpolice.gov.ua/" target="_blank">Кіберполіція України</a></li>
+                <li><a href="https://haveibeenpwned.com/" target="_blank">Перевірка витоку паролів</a></li>
             </ul>
-            
-            <h5>Чому важливо створювати надійні паролі?</h5>
-            <iframe width="560" height="315" 
-                src="https://www.youtube-nocookie.com/embed/YitHISP0Isk" 
-                title="YouTube video player" 
-                style="border: none;" 
-                loading="lazy" 
-                srcdoc="<style>body{margin:0;height:100vh;background:#222;display:flex;justify-content:center;align-items:center;font-family:sans-serif;} a{color:#fff;text-decoration:none;font-size:22px;background:#c00;padding:15px 30px;border-radius:8px;transition:0.3s;} a:hover{background:#f00;}</style><a href='https://www.youtube-nocookie.com/embed/YitHISP0Isk?autoplay=1'>▶️ Навіщо надійний пароль?</a>" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-            </iframe>
-            
-            <h6>Аудіо-інструкція: Як створити пароль</h6>
-            <audio controls style="display: block;">
-                <source src="audio-guide.mp3" type="audio/mpeg">
-                Ваш браузер не підтримує аудіо елемент.
-            </audio>
-        </section>
-    </main>
+        </aside>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Усі права захищені.</p>
+        <div class="footer-content">
+            <p>&copy; 2026 Усі права захищені.</p>
+            <div class="socials">
+                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            </div>
+        </div>
     </footer>
+    
+    <script>
+//скрипт для теми(працює разом з @media prefers-color-scheme
+        const themeBtn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+        
+        // збережений вибір користувача
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        themeBtn.addEventListener('click', function() {
+            // чи активна темна тема або через систему або через наш клас
+            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
+
+            if (isDark) {
+                // вмикаємо світлу
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // вмикаємо темну
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
