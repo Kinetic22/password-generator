@@ -1,0 +1,563 @@
+/* 1. ЗМІННІ ДЛЯ ТЕМ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap');
+
+/* --- БАЗОВА СВІТЛА ТЕМА --- */
+:root {
+    --bg-main: #f4f7f9;
+    --bg-surface: #ffffff;
+    --bg-input: #ffffff;
+    --text-main: #1e293b;
+    --text-title: #0f172a;
+    --text-muted: #475569;
+    --primary: #2563eb;
+    --accent: #10b981;
+    --border: #e2e8f0;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-main: #0f172a;
+        --bg-surface: #1e293b;
+        --bg-input: #334155;
+        --text-main: #f8fafc;
+        --text-title: #ffffff;
+        --text-muted: #cbd5e1;
+        --border: #334155;
+    }
+    table tbody tr:nth-child(even) { background-color: #1e293b; }
+    table tbody tr:hover { background-color: #334155; }
+}
+
+/*  ТЕМНА ТЕМА */
+body.dark-mode {
+    --bg-main: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-input: #334155;
+    --text-main: #f8fafc;
+    --text-title: #ffffff;
+    --text-muted: #cbd5e1;
+    --border: #334155;
+}
+body.dark-mode table tbody tr:nth-child(even) { background-color: #1e293b; }
+body.dark-mode table tbody tr:hover { background-color: #334155; }
+
+body.light-mode {
+    --bg-main: #f4f7f9;
+    --bg-surface: #ffffff;
+    --bg-input: #ffffff;
+    --text-main: #1e293b;
+    --text-title: #0f172a;
+    --text-muted: #475569;
+    --border: #e2e8f0;
+}
+body.light-mode table tbody tr:nth-child(even) { background-color: #f8fafc; }
+body.light-mode table tbody tr:hover { background-color: #f1f5f9; }
+
+
+/* 2. БАЗОВІ СТИЛІ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+p, label, li {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.15rem; margin-top: 1.5rem; }
+h5 { font-size: 1.05rem; margin-top: 1.5rem; color: var(--primary); }
+h6 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+
+/* 3. СТРУКТУРА ТА БЛОКИ ШАПКА */
+header {
+    background-color: var(--bg-surface);
+    padding: 1.5rem 5%;
+    border-bottom: 2px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative; /* для анімації меню */
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-title);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.theme-btn {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    margin: 0;
+}
+
+.theme-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+section, .sidebar, .card {
+    background: var(--bg-surface);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+h2 {
+    font-size: 1.75rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+}
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+}
+
+audio {
+    width: 100%;
+    display: block;
+    margin: 1.5rem auto;
+    outline: none;
+}
+
+/* 4. НАВІГАЦІЯ */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 1.5rem 0 0 0;
+    flex-wrap: wrap;
+}
+
+nav a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+nav a.active {
+    color: var(--primary);
+    font-weight: 600;
+    border-bottom: 3px solid var(--primary);
+}
+
+/* 5. ФОРМИ ТА КНОПКИ */
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    background-color: var(--bg-main);
+}
+
+legend {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--bg-surface);
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.checkbox-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+button, button[type="submit"], #generate-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 1rem;
+}
+
+button:hover, button[type="submit"]:hover, #generate-btn:hover {
+    background-color: #1d4ed8;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* 6. ГЕНЕРАЦІЯ */
+#result-container {
+    margin-top: 25px;
+    padding: 1.5rem;
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+#generated-password {
+    display: block;
+    font-size: 2rem;
+    color: var(--accent);
+    margin: 15px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    word-break: break-all;
+    letter-spacing: 2px;
+}
+
+.copy-btn {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.copy-btn:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+}
+
+
+/* 7. ТАБЛИЦІ */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px var(--border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+
+/* 8. GRID-АРХІТЕКТУРА MACRO-LAYOUT */
+.wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas: "main sidebar";
+    gap: 30px;
+    
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    align-items: start;
+    flex: 1; 
+    width: 100%;
+}
+
+.wrapper main {
+    grid-area: main;
+    min-width: 0; 
+}
+
+.sidebar {
+    grid-area: sidebar;
+    min-width: 0;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 12px;
+}
+
+.sidebar a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+}
+
+.sidebar a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Розумна сітка карток (Алгоритм auto-fit) */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.card h3 {
+    color: var(--text-title);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    border-bottom: none;
+}
+
+.card p {
+    font-size: 0.9rem;
+}
+
+.card strong {
+    display: block;
+    color: var(--primary);
+    font-family: monospace;
+    font-size: 1rem;
+    word-break: break-all;
+    background: var(--bg-main);
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
+/* 9. БУРГЕР-МЕНЮ З АНІМАЦІЄЮ MODERN UX */
+.menu-burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    margin: 0;
+    align-items: center;
+}
+
+.menu-burger span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .menu-burger {
+        display: flex;
+    }
+    
+    /* виїзд через translateX */
+    .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-surface);
+        padding-bottom: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        
+        /* Початковий стан: сховано зліва, прозоро */
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+    }
+    
+    /* коли чекбокс натиснуто */
+    #menu-toggle:checked ~ .main-nav {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Grid для мобіл */
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "main"
+            "sidebar";
+    }
+}
+
+/* 10. FOOTER */
+footer {
+    background-color: var(--bg-surface);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.socials a {
+    color: var(--primary);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.socials a:hover {
+    text-decoration: underline;
+}
