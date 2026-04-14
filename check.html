@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Перевірте надійність вашого пароля.">
+    <title>Перевірка пароля</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
+                <label for="menu-toggle" class="menu-burger">
+                    <span></span><span></span><span></span>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
+        
+        <nav class="main-nav">
+            <ul>
+                <li><a href="catalog.html">Що таке генератор паролів?</a></li>
+                <li><a href="index.html">Згенерувати пароль</a></li>
+                <li><a href="check.html" class="active">Перевірити пароль</a></li>
+                <li><a href="contacts.html">Контакти</a></li>
+            </ul>
+        </nav>
+    </header> 
+    
+    <div class="wrapper">
+        <main>
+            <section>
+                <h2>Перевірка надійності пароля</h2>
+                <p>Введіть ваш пароль, щоб дізнатися, наскільки він стійкий до злому.</p>
+                
+                <fieldset>
+                    <legend>Аналізатор пароля</legend>
+                    
+                    <div class="form-group">
+                        <label for="check-pwd">Ваш пароль:</label>
+                        <input type="text" id="check-pwd" placeholder="Введіть пароль сюди...">
+                    </div>
+
+                    <div class="strength-meter">
+                        <div id="strength-bar" class="strength-bar"></div>
+                    </div>
+                    
+                    <div id="strength-text" class="strength-text">Введіть пароль для перевірки</div>
+                </fieldset>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <h3>Поради</h3>
+            <p><strong>Слабкий:</strong> Легко вгадати (менше 8 символів або тільки букви).</p>
+            <p><strong>Середній:</strong> Краще, але вразливий до підбору (є цифри, але немає спецсимволів).</p>
+            <p><strong>Надійний:</strong> Містить великі/малі літери, цифри та спецсимволи (!@#$). Довжина понад 10 символів.</p>
+        </aside>
+    </div> 
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Усі права захищені.</p>
+            <div class="socials">
+                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // --- ЛОГІКА ТЕМИ ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        themeBtn.addEventListener('click', function() {
+            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
+
+            if (isDark) {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // --- ЛОГІКА ПЕРЕВІРКИ ПАРОЛЯ ---
+        const checkInput = document.getElementById('check-pwd');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthText = document.getElementById('strength-text');
+
+        checkInput.addEventListener('input', function() {
+            const val = this.value;
+            let score = 0;
+            
+            // Якщо поле пусте
+            if (!val) {
+                strengthBar.className = 'strength-bar';
+                strengthText.textContent = 'Введіть пароль для перевірки';
+                strengthText.className = 'strength-text';
+                return;
+            }
+
+            // Рахуємо бали надійності
+            if (val.length >= 8) score += 1; // Довжина хоча б 8
+            if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score += 1; // Є малі і великі літери
+            if (/\d/.test(val)) score += 1; // Є цифри
+            if (/[^a-zA-Z0-9]/.test(val)) score += 1; // Є спецсимволи
+
+            // Якщо пароль надто короткий - він завжди слабкий
+            if (val.length < 6) {
+                score = 0; 
+            }
+
+            // Оновлюємо дизайн
+            strengthBar.className = 'strength-bar'; // скидаємо попередні класи
+            strengthText.className = 'strength-text';
+
+            if (score <= 1) {
+                strengthBar.classList.add('bar-weak');
+                strengthText.textContent = 'Слабкий пароль ❌';
+                strengthText.classList.add('text-weak');
+            } else if (score === 2 || score === 3) {
+                strengthBar.classList.add('bar-medium');
+                strengthText.textContent = 'Середній пароль ⚠️';
+                strengthText.classList.add('text-medium');
+            } else if (score >= 4) {
+                strengthBar.classList.add('bar-strong');
+                strengthText.textContent = 'Надійний пароль ✅';
+                strengthText.classList.add('text-strong');
+            }
+        });
+    </script>
+</body>
+</html>
