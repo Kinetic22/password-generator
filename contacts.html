@@ -7,12 +7,12 @@
     <meta property="og:title" content="Контакти - Генератор паролів">
     <meta property="og:description" content="Зв'яжіться з нами для пропозицій та питань.">
     <title>Контакти</title>
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style.css">   <link rel="stylesheet" href="style3.css">
 </head>
 <body>
     <header>
         <div class="header-top">
-            <h1>Генератор паролів</h1>
+            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
             <div class="header-actions">
                 <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
                 <label for="menu-toggle" class="menu-burger">
@@ -27,6 +27,7 @@
             <ul>
                 <li><a href="catalog.html">Що таке генератор паролів?</a></li>
                 <li><a href="index.html">Згенерувати пароль</a></li>
+                <li><a href="check.html">Перевірити пароль</a></li>
                 <li><a href="contacts.html" class="active">Контакти</a></li>
             </ul>
         </nav>
@@ -70,8 +71,15 @@
 
         <aside class="sidebar">
             <h3>Інші канали зв'язку</h3>
-            <p><strong>Email:</strong> support@passwordgen.ua</p>
-            <p><strong>Робочі години:</strong> Пн - Пт, 10:00 - 18:00</p>
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 5px;"><strong>Email:</strong></p>
+                <a href="mailto:support@passwordgen.ua">support@passwordgen.ua</a>
+            </div>
+            
+            <div>
+                <p style="margin-bottom: 5px;"><strong>Робочі години:</strong></p>
+                <p style="margin-top: 0;">Пн - Пт, 10:00 - 18:00</p>
+            </div>
         </aside>
     </div> 
     
@@ -86,11 +94,9 @@
     </footer>
     
     <script>
-//скрипт для теми(працює разом з @media prefers-color-scheme
         const themeBtn = document.getElementById('theme-toggle');
         const currentTheme = localStorage.getItem('theme');
         
-        // збережений вибір користувача
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-mode');
         } else if (currentTheme === 'light') {
@@ -98,17 +104,14 @@
         }
 
         themeBtn.addEventListener('click', function() {
-            // чи активна темна тема або через систему або через наш клас
             const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
 
             if (isDark) {
-                // вмикаємо світлу
                 document.body.classList.remove('dark-mode');
                 document.body.classList.add('light-mode');
                 localStorage.setItem('theme', 'light');
             } else {
-                // вмикаємо темну
                 document.body.classList.remove('light-mode');
                 document.body.classList.add('dark-mode');
                 localStorage.setItem('theme', 'dark');
