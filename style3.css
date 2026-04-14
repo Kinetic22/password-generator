@@ -1,214 +1,3 @@
-/* 1. ЗМІННІ ДЛЯ ТЕМ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap');
-
-/* БАЗОВА СВІТЛА ТЕМА */
-:root {
-    --bg-main: #f4f7f9;
-    --bg-surface: #ffffff;
-    --bg-input: #ffffff;
-    --text-main: #1e293b;
-    --text-title: #0f172a;
-    --text-muted: #475569;
-    --primary: #2563eb;
-    --accent: #10b981;
-    --border: #e2e8f0;
-    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-main: #0f172a;
-        --bg-surface: #1e293b;
-        --bg-input: #334155;
-        --text-main: #f8fafc;
-        --text-title: #ffffff;
-        --text-muted: #cbd5e1;
-        --border: #334155;
-    }
-    table tbody tr:nth-child(even) { background-color: #1e293b; }
-    table tbody tr:hover { background-color: #334155; }
-}
-
-/*  ТЕМНА ТЕМА */
-body.dark-mode {
-    --bg-main: #0f172a;
-    --bg-surface: #1e293b;
-    --bg-input: #334155;
-    --text-main: #f8fafc;
-    --text-title: #ffffff;
-    --text-muted: #cbd5e1;
-    --border: #334155;
-}
-body.dark-mode table tbody tr:nth-child(even) { background-color: #1e293b; }
-body.dark-mode table tbody tr:hover { background-color: #334155; }
-
-body.light-mode {
-    --bg-main: #f4f7f9;
-    --bg-surface: #ffffff;
-    --bg-input: #ffffff;
-    --text-main: #1e293b;
-    --text-title: #0f172a;
-    --text-muted: #475569;
-    --border: #e2e8f0;
-}
-body.light-mode table tbody tr:nth-child(even) { background-color: #f8fafc; }
-body.light-mode table tbody tr:hover { background-color: #f1f5f9; }
-
-
-/* 2. БАЗОВІ СТИЛІ */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-p, label, li {
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-h1 { font-size: 2rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.15rem; margin-top: 1.5rem; }
-h5 { font-size: 1.05rem; margin-top: 1.5rem; color: var(--primary); }
-h6 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-
-/* 3. СТРУКТУРА ТА БЛОКИ ШАПКА */
-header {
-    background-color: var(--bg-surface);
-    padding: 1.5rem 5%;
-    border-bottom: 2px solid var(--border);
-    box-shadow: var(--shadow);
-    position: relative; /* для анімації меню */
-    z-index: 100;
-}
-
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-title);
-    margin: 0;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.theme-btn {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    margin: 0;
-}
-
-.theme-btn:hover {
-    background: var(--primary);
-    color: white;
-}
-
-section, .sidebar, .card {
-    background: var(--bg-surface);
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-}
-
-h2 {
-    font-size: 1.75rem;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 0.75rem;
-    margin-bottom: 1.5rem;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1.5rem auto;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-}
-
-iframe {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    height: auto;
-    display: block;
-    margin: 1.5rem auto;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-}
-
-audio {
-    width: 100%;
-    display: block;
-    margin: 1.5rem auto;
-    outline: none;
-}
-
-/* 4. НАВІГАЦІЯ */
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 0;
-    margin: 1.5rem 0 0 0;
-    flex-wrap: wrap;
-}
-
-nav a {
-    display: block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-}
-
-nav a:hover {
-    color: var(--primary);
-}
-
-nav a.active {
-    color: var(--primary);
-    font-weight: 600;
-    border-bottom: 3px solid var(--primary);
-}
-
 /* 5. ФОРМИ ТА КНОПКИ */
 fieldset {
     border: 1px solid var(--border);
@@ -373,63 +162,7 @@ th {
     font-weight: 600;
 }
 
-
-/* 8. GRID-АРХІТЕКТУРА MACRO-LAYOUT */
-.wrapper {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-areas: "main sidebar";
-    gap: 30px;
-    
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 0 20px;
-    align-items: start;
-    flex: 1; 
-    width: 100%;
-}
-
-.wrapper main {
-    grid-area: main;
-    min-width: 0; 
-}
-
-.sidebar {
-    grid-area: sidebar;
-    min-width: 0;
-    position: sticky;
-    top: 20px;
-}
-
-.sidebar h3 {
-    color: var(--primary);
-    margin-bottom: 15px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 10px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar li {
-    margin-bottom: 12px;
-}
-
-.sidebar a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.3s;
-    display: block;
-}
-
-.sidebar a:hover {
-    color: var(--primary);
-    text-decoration: underline;
-}
-
-/* Розумна сітка карток (Алгоритм auto-fit) */
+/* Розумна сітка карток auto-fit */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -469,95 +202,36 @@ th {
     text-align: center;
 }
 
-
-/* 9. БУРГЕР-МЕНЮ З АНІМАЦІЄЮ MODERN UX */
-.menu-burger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-    margin: 0;
-    align-items: center;
+/* 11. ПЕРЕВІРКА НАДІЙНОСТІ ПАРОЛЯ */
+.strength-meter {
+    height: 12px;
+    background-color: var(--border);
+    border-radius: 6px;
+    margin-top: 15px;
+    overflow: hidden;
+    width: 100%;
 }
 
-.menu-burger span {
-    width: 30px;
-    height: 3px;
-    background-color: var(--primary);
-    border-radius: 2px;
+.strength-bar {
+    height: 100%;
+    width: 0;
+    transition: width 0.4s ease, background-color 0.4s ease;
+    border-radius: 6px;
 }
 
-@media (max-width: 768px) {
-    .menu-burger {
-        display: flex;
-    }
-    
-    /* виїзд через translateX */
-    .main-nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--bg-surface);
-        padding-bottom: 1.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-        
-        /* Початковий стан: сховано зліва, прозоро */
-        transform: translateX(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
-    }
-    
-    /* коли чекбокс натиснуто */
-    #menu-toggle:checked ~ .main-nav {
-        transform: translateX(0);
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .main-nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Grid для мобіл */
-    .wrapper {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "main"
-            "sidebar";
-    }
-}
-
-/* 10. FOOTER */
-footer {
-    background-color: var(--bg-surface);
-    color: var(--text-muted);
+.strength-text {
+    margin-top: 12px;
+    font-weight: 600;
     text-align: center;
-    padding: 20px 0;
-    margin-top: auto;
-    border-top: 1px solid var(--border);
+    font-size: 1.1rem;
+    transition: color 0.3s;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
+/* Кольори для різних рівнів надійності */
+.bar-weak { background-color: #ef4444; width: 33%; }    /* Червоний (слабкий) */
+.bar-medium { background-color: #eab308; width: 66%; }  /* Жовтий (середній) */
+.bar-strong { background-color: #10b981; width: 100%; } /* Зелений (надійний) */
 
-.socials a {
-    color: var(--primary);
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-.socials a:hover {
-    text-decoration: underline;
-}
+.text-weak { color: #ef4444; }
+.text-medium { color: #eab308; }
+.text-strong { color: #10b981; }
