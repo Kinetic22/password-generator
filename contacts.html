@@ -1,121 +1,233 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Контактна інформація та форма зворотного зв'язку.">
-    <meta property="og:title" content="Контакти - Генератор паролів">
-    <meta property="og:description" content="Зв'яжіться з нами для пропозицій та питань.">
     <title>Контакти</title>
-    <link rel="stylesheet" href="style.css">   <link rel="stylesheet" href="style3.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        accent: '#10b981',
+                        surface: { light: '#ffffff', dark: '#1e293b' },
+                        background: { light: '#f4f7f9', dark: '#0f172a' },
+                        border: { light: '#e2e8f0', dark: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* МОБІЛЬНЕ МЕНЮ */
+        #mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            width: 100%;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        #menu-toggle:checked ~ #mobile-menu {
+            max-height: 350px;
+            opacity: 1;
+        }
+
+        /* КАСКАДНА АНІМАЦІЯ */
+        @media (max-width: 767px) {
+            #mobile-menu li {
+                transform: translateY(-15px);
+                opacity: 0;
+                transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            }
+            #menu-toggle:checked ~ #mobile-menu li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            /* Ефект */
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(1) { transition-delay: 0.10s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(2) { transition-delay: 0.15s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(3) { transition-delay: 0.20s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(4) { transition-delay: 0.25s; }
+        }
+
+        /* ПК ВЕРСІЯ */
+        @media (min-width: 768px) {
+            #mobile-menu {
+                max-height: none !important;
+                opacity: 1 !important;
+                overflow: visible;
+            }
+        }
+
+        /* АНІМАЦІЯ */
+        .hamburger span { transition: all 0.3s ease-in-out; transform-origin: center; }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="header-top">
-            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
-            <div class="header-actions">
-                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
-                <label for="menu-toggle" class="menu-burger">
-                    <span></span><span></span><span></span>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-surface-light dark:bg-surface-dark border-b-2 border-border-light dark:border-border-dark shadow-sm sticky top-0 z-50">
+        
+        <input type="checkbox" id="menu-toggle" class="hidden">
+        
+        <div class="flex-container max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold font-poppins"><a href="catalog.html" class="hover:opacity-80 transition-opacity">Генератор паролів</a></h1>
+            
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="px-4 py-2 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all bg-white dark:bg-slate-800">Змінити тему 🌓</button>
+                
+                <label for="menu-toggle" class="hamburger md:hidden flex flex-col gap-1.5 cursor-pointer p-2">
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
                 </label>
             </div>
         </div>
 
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
-        
-        <nav class="main-nav">
-            <ul>
-                <li><a href="catalog.html">Що таке генератор паролів?</a></li>
-                <li><a href="index.html">Згенерувати пароль</a></li>
-                <li><a href="check.html">Перевірити пароль</a></li>
-                <li><a href="contacts.html" class="active">Контакти</a></li>
+        <nav id="mobile-menu" class="w-full">
+            <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-14 py-6 md:py-4 max-w-5xl mx-auto px-4">
+                <li class="w-full text-center md:w-auto">
+                    <a href="catalog.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Що таке генератор паролів?
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="index.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Згенерувати пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="check.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Перевірити пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="contacts.html" class="inline-block md:block font-poppins font-bold text-primary border-b-2 border-primary pb-2">
+                        Контакти
+                    </a>
+                </li>
             </ul>
         </nav>
-    </header> 
-    
-    <div class="wrapper">
-        <main>
-            <section>
-                <h2>Зв'яжіться з нами</h2>
-                <p>Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <main class="md:col-span-2 space-y-8">
+            <section class="bg-surface-light dark:bg-surface-dark p-6 md:p-8 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h2 class="text-3xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-4 font-poppins">Зв'яжіться з нами</h2>
+                <p class="text-slate-500 dark:text-slate-400 mb-8 text-lg">Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
                 
-                <form action="#" method="POST">
-                    <fieldset>
-                        <legend>Форма зворотного зв'язку</legend>
+                <form action="#" method="POST" class="space-y-6">
+                    <fieldset class="border border-border-light dark:border-border-dark rounded-xl p-6 md:p-8 bg-background-light dark:bg-slate-800 shadow-inner">
+                        <legend class="font-poppins font-semibold text-primary bg-surface-light dark:bg-surface-dark px-4 py-1 border border-border-light dark:border-border-dark rounded-lg">Форма зворотного зв'язку</legend>
                         
-                        <div class="form-group">
-                            <label for="user-name">Ім'я:</label>
-                            <input type="text" id="user-name" name="name" required placeholder="Введіть ваше ім'я">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="flex flex-col gap-2">
+                                <label for="user-name" class="font-medium text-slate-700 dark:text-slate-300">Ім'я:</label>
+                                <input type="text" id="user-name" name="name" required placeholder="Введіть ваше ім'я" 
+                                    class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder-slate-400">
+                            </div>
+                            
+                            <div class="flex flex-col gap-2">
+                                <label for="user-email" class="font-medium text-slate-700 dark:text-slate-300">Email:</label>
+                                <input type="email" id="user-email" name="email" required placeholder="example@gmail.com" 
+                                    class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder-slate-400">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2 mb-6">
+                            <label for="user-phone" class="font-medium text-slate-700 dark:text-slate-300">Телефон (+380...):</label>
+                            <input type="tel" id="user-phone" name="phone" pattern="^\+380\d{9}$" required title="Введіть номер у форматі +380XXXXXXXXX" placeholder="+380XXXXXXXXX" 
+                                class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder-slate-400">
                         </div>
                         
-                        <div class="form-group">
-                            <label for="user-email">Email:</label>
-                            <input type="email" id="user-email" name="email" required placeholder="example@gmail.com">
+                        <div class="flex flex-col gap-2 mb-8">
+                            <label for="message" class="font-medium text-slate-700 dark:text-slate-300">Повідомлення:</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Напишіть ваше повідомлення тут..." 
+                                class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-y placeholder-slate-400"></textarea>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="user-phone">Телефон (+380...):</label>
-                            <input type="tel" id="user-phone" name="phone" pattern="^\+380\d{9}$" required title="Введіть номер у форматі +380XXXXXXXXX" placeholder="+380...">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Повідомлення:</label>
-                            <textarea id="message" name="message" rows="4" required placeholder="Напишіть ваше повідомлення тут..."></textarea>
-                        </div>
-                        
-                        <button type="submit">Відправити</button>
+                        <button type="submit" class="w-full md:w-auto bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all active:scale-95 shadow-md flex justify-center items-center gap-2">
+                            <span>Відправити повідомлення</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                        </button>
                     </fieldset>
                 </form>
             </section>
         </main>
 
-        <aside class="sidebar">
-            <h3>Інші канали зв'язку</h3>
-            <div style="margin-bottom: 20px;">
-                <p style="margin-bottom: 5px;"><strong>Email:</strong></p>
-                <a href="mailto:support@passwordgen.ua">support@passwordgen.ua</a>
-            </div>
-            
-            <div>
-                <p style="margin-bottom: 5px;"><strong>Робочі години:</strong></p>
-                <p style="margin-top: 0;">Пн - Пт, 10:00 - 18:00</p>
+        <aside class="md:col-span-1 h-fit sticky top-24 space-y-6">
+            <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h3 class="text-xl font-bold mb-6 border-b border-border-light dark:border-border-dark pb-2 font-poppins">Інші канали зв'язку</h3>
+                
+                <div class="group flex items-start gap-4 mb-6 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-border-light dark:hover:border-border-dark">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-700 dark:text-slate-300">Email:</p>
+                        <a href="mailto:support@passwordgen.ua" class="text-primary hover:underline font-medium break-all">support@passwordgen.ua</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-border-light dark:border-border-dark">
+                    <div class="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-lg text-emerald-600 dark:text-emerald-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-700 dark:text-slate-300">Робочі години:</p>
+                        <p class="text-slate-500 dark:text-slate-400 mt-1">Пн - Пт<br>10:00 - 18:00</p>
+                    </div>
+                </div>
             </div>
         </aside>
-    </div> 
+    </div>
     
-    <footer>
-        <div class="footer-content">
+    <footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark mt-auto py-6">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
             <p>&copy; 2026 Усі права захищені.</p>
-            <div class="socials">
-                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
-                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            <div class="flex gap-6 font-semibold">
+                <a href="https://t.me/nazareth_grrr" target="_blank" class="text-primary hover:underline">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank" class="text-primary hover:underline">GitHub</a>
             </div>
         </div>
     </footer>
     
     <script>
+        // ТЕМА
         const themeBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
         const currentTheme = localStorage.getItem('theme');
         
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (currentTheme === 'light') {
-            document.body.classList.add('light-mode');
+        if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
         }
 
         themeBtn.addEventListener('click', function() {
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
-
-            if (isDark) {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            }
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
 </body>
