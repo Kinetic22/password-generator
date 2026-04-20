@@ -1,105 +1,207 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Перевірте надійність вашого пароля.">
     <title>Перевірка пароля</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style3.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        accent: '#10b981',
+                        surface: { light: '#ffffff', dark: '#1e293b' },
+                        background: { light: '#f4f7f9', dark: '#0f172a' },
+                        border: { light: '#e2e8f0', dark: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* МОБІЛЬНЕ МЕНЮ */
+        #mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            width: 100%;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        #menu-toggle:checked ~ #mobile-menu {
+            max-height: 350px;
+            opacity: 1;
+        }
+
+        /* АНІМАЦІЯ  */
+        @media (max-width: 767px) {
+            #mobile-menu li {
+                transform: translateY(-15px);
+                opacity: 0;
+                transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            }
+            #menu-toggle:checked ~ #mobile-menu li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            /* Ефект драбинки */
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(1) { transition-delay: 0.10s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(2) { transition-delay: 0.15s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(3) { transition-delay: 0.20s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(4) { transition-delay: 0.25s; }
+        }
+
+        /* ПК ВЕРСІЯ */
+        @media (min-width: 768px) {
+            #mobile-menu {
+                max-height: none !important;
+                opacity: 1 !important;
+                overflow: visible;
+            }
+        }
+
+        /* АНІМАЦІЯ */
+        .hamburger span { transition: all 0.3s ease-in-out; transform-origin: center; }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="header-top">
-            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
-            <div class="header-actions">
-                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
-                <label for="menu-toggle" class="menu-burger">
-                    <span></span><span></span><span></span>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-surface-light dark:bg-surface-dark border-b-2 border-border-light dark:border-border-dark shadow-sm sticky top-0 z-50">
+        
+        <input type="checkbox" id="menu-toggle" class="hidden">
+        
+        <div class="flex-container max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold font-poppins"><a href="catalog.html" class="hover:opacity-80 transition-opacity">Генератор паролів</a></h1>
+            
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="px-4 py-2 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all bg-white dark:bg-slate-800">Змінити тему 🌓</button>
+                
+                <label for="menu-toggle" class="hamburger md:hidden flex flex-col gap-1.5 cursor-pointer p-2">
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
                 </label>
             </div>
         </div>
 
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
-        
-        <nav class="main-nav">
-            <ul>
-                <li><a href="catalog.html">Що таке генератор паролів?</a></li>
-                <li><a href="index.html">Згенерувати пароль</a></li>
-                <li><a href="check.html" class="active">Перевірити пароль</a></li>
-                <li><a href="contacts.html">Контакти</a></li>
+        <nav id="mobile-menu" class="w-full">
+            <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-14 py-6 md:py-4 max-w-5xl mx-auto px-4">
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="catalog.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Що таке генератор паролів?
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="index.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Згенерувати пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="check.html" class="inline-block md:block font-poppins font-bold text-primary border-b-2 border-primary pb-2">
+                        Перевірити пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="contacts.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Контакти
+                    </a>
+                </li>
             </ul>
         </nav>
-    </header> 
-    
-    <div class="wrapper">
-        <main>
-            <section>
-                <h2>Перевірка надійності пароля</h2>
-                <p>Введіть ваш пароль, щоб дізнатися, наскільки він стійкий до злому.</p>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <main class="md:col-span-2 space-y-8">
+            <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h2 class="text-2xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-4 font-poppins">Перевірка надійності пароля</h2>
+                <p class="text-slate-500 dark:text-slate-400 mb-8">Введіть ваш пароль, щоб дізнатися, наскільки він стійкий до злому. Ми не зберігаємо введені дані.</p>
                 
-                <fieldset>
-                    <legend>Аналізатор пароля</legend>
+                <fieldset class="border border-border-light dark:border-border-dark rounded-xl p-6 md:p-8 bg-background-light dark:bg-slate-800 shadow-inner">
+                    <legend class="font-poppins font-semibold text-primary bg-surface-light dark:bg-surface-dark px-4 py-1 border border-border-light dark:border-border-dark rounded-lg">Аналізатор пароля</legend>
                     
-                    <div class="form-group">
-                        <label for="check-pwd">Ваш пароль:</label>
-                        <input type="text" id="check-pwd" placeholder="Введіть пароль сюди...">
+                    <div class="flex flex-col mb-2">
+                        <label for="check-pwd" class="mb-3 font-medium text-lg">Ваш пароль:</label>
+                        <input type="text" id="check-pwd" placeholder="Введіть пароль сюди..." autocomplete="off" class="w-full p-4 text-lg font-mono rounded-xl border-2 border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all shadow-sm">
                     </div>
 
-                    <div class="strength-meter">
-                        <div id="strength-bar" class="strength-bar"></div>
+                    <div class="w-full h-3 bg-slate-200 dark:bg-slate-600 rounded-full mt-8 overflow-hidden shadow-inner">
+                        <div id="strength-bar" class="h-full rounded-full transition-all duration-500 w-0 bg-transparent"></div>
                     </div>
                     
-                    <div id="strength-text" class="strength-text">Введіть пароль для перевірки</div>
+                    <div id="strength-text" class="mt-4 text-center font-bold text-lg text-slate-500 dark:text-slate-400 transition-colors duration-300">
+                        Введіть пароль для перевірки
+                    </div>
                 </fieldset>
             </section>
         </main>
 
-        <aside class="sidebar">
-            <h3>Поради</h3>
-            <p><strong>Слабкий:</strong> Легко вгадати (менше 8 символів або тільки букви).</p>
-            <p><strong>Середній:</strong> Краще, але вразливий до підбору (є цифри, але немає спецсимволів).</p>
-            <p><strong>Надійний:</strong> Містить великі/малі літери, цифри та спецсимволи (!@#$). Довжина понад 10 символів.</p>
+        <aside class="md:col-span-1 h-fit sticky top-24 space-y-6">
+            <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h3 class="text-xl font-bold mb-4 border-b border-border-light dark:border-border-dark pb-2 font-poppins">Критерії надійності</h3>
+                
+                <div class="space-y-4">
+                    <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/30 rounded-xl">
+                        <p class="font-bold text-red-600 dark:text-red-400 mb-1 flex items-center gap-2"><span class="text-xl">❌</span> Слабкий</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Легко вгадати (менше 8 символів або тільки букви).</p>
+                    </div>
+
+                    <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800/30 rounded-xl">
+                        <p class="font-bold text-yellow-600 dark:text-yellow-500 mb-1 flex items-center gap-2"><span class="text-xl">⚠️</span> Середній</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Краще, але вразливий до підбору (є цифри, але немає спецсимволів).</p>
+                    </div>
+
+                    <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-xl">
+                        <p class="font-bold text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-2"><span class="text-xl">✅</span> Надійний</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Містить великі/малі літери, цифри та спецсимволи (!@#$). Довжина понад 10 символів.</p>
+                    </div>
+                </div>
+            </div>
         </aside>
-    </div> 
+    </div>
     
-    <footer>
-        <div class="footer-content">
+    <footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark mt-auto py-6">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
             <p>&copy; 2026 Усі права захищені.</p>
-            <div class="socials">
-                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
-                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            <div class="flex gap-6 font-semibold">
+                <a href="https://t.me/nazareth_grrr" target="_blank" class="text-primary hover:underline">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank" class="text-primary hover:underline">GitHub</a>
             </div>
         </div>
     </footer>
     
     <script>
-        // --- ЛОГІКА ТЕМИ ---
+        // ТЕМА
         const themeBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
         const currentTheme = localStorage.getItem('theme');
         
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (currentTheme === 'light') {
-            document.body.classList.add('light-mode');
+        if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
         }
 
         themeBtn.addEventListener('click', function() {
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
-
-            if (isDark) {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            }
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
 
-        // --- ЛОГІКА ПЕРЕВІРКИ ПАРОЛЯ ---
+        // ЛОГІКА ПЕРЕВІРКИ 
         const checkInput = document.getElementById('check-pwd');
         const strengthBar = document.getElementById('strength-bar');
         const strengthText = document.getElementById('strength-text');
@@ -108,41 +210,42 @@
             const val = this.value;
             let score = 0;
             
-            // Якщо поле пусте
+            // Базові класи
+            strengthBar.className = 'h-full rounded-full transition-all duration-500 w-0';
+            strengthText.className = 'mt-4 text-center font-bold text-lg text-slate-500 dark:text-slate-400 transition-colors duration-300';
+
+            // пусте
             if (!val) {
-                strengthBar.className = 'strength-bar';
                 strengthText.textContent = 'Введіть пароль для перевірки';
-                strengthText.className = 'strength-text';
                 return;
             }
 
-            // Рахуємо бали надійності
-            if (val.length >= 8) score += 1; // Довжина хоча б 8
-            if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score += 1; // Є малі і великі літери
-            if (/\d/.test(val)) score += 1; // Є цифри
-            if (/[^a-zA-Z0-9]/.test(val)) score += 1; // Є спецсимволи
+            // Розрахунок надійності
+            if (val.length >= 8) score += 1;
+            if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score += 1;
+            if (/\d/.test(val)) score += 1;
+            if (/[^a-zA-Z0-9]/.test(val)) score += 1;
 
-            // Якщо пароль надто короткий - він завжди слабкий
             if (val.length < 6) {
                 score = 0; 
             }
 
-            // Оновлюємо дизайн
-            strengthBar.className = 'strength-bar'; // скидаємо попередні класи
-            strengthText.className = 'strength-text';
-
+            //  кольір та ширина Tailwind 
             if (score <= 1) {
-                strengthBar.classList.add('bar-weak');
+                strengthBar.classList.add('w-1/3', 'bg-red-500'); 
                 strengthText.textContent = 'Слабкий пароль ❌';
-                strengthText.classList.add('text-weak');
+                strengthText.classList.replace('text-slate-500', 'text-red-600');
+                strengthText.classList.replace('dark:text-slate-400', 'dark:text-red-400');
             } else if (score === 2 || score === 3) {
-                strengthBar.classList.add('bar-medium');
+                strengthBar.classList.add('w-2/3', 'bg-yellow-500'); 
                 strengthText.textContent = 'Середній пароль ⚠️';
-                strengthText.classList.add('text-medium');
+                strengthText.classList.replace('text-slate-500', 'text-yellow-600');
+                strengthText.classList.replace('dark:text-slate-400', 'dark:text-yellow-500');
             } else if (score >= 4) {
-                strengthBar.classList.add('bar-strong');
+                strengthBar.classList.add('w-full', 'bg-emerald-500'); 
                 strengthText.textContent = 'Надійний пароль ✅';
-                strengthText.classList.add('text-strong');
+                strengthText.classList.replace('text-slate-500', 'text-emerald-600');
+                strengthText.classList.replace('dark:text-slate-400', 'dark:text-emerald-400');
             }
         });
     </script>
