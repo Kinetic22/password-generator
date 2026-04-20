@@ -1,149 +1,234 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Що таке генератор паролів та як він працює.">
-    <meta property="og:title" content="Інформація про генератор паролів">
-    <meta property="og:description" content="Дізнайтеся, чому важливо використовувати складні паролі.">
     <title>Що таке генератор паролів?</title>
-    <link rel="stylesheet" href="style.css">   <link rel="stylesheet" href="style3.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        accent: '#10b981',
+                        surface: { light: '#ffffff', dark: '#1e293b' },
+                        background: { light: '#f4f7f9', dark: '#0f172a' },
+                        border: { light: '#e2e8f0', dark: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* МОБІЛЬНЕ МЕНЮ */
+        #mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            width: 100%;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        #menu-toggle:checked ~ #mobile-menu {
+            max-height: 350px;
+            opacity: 1;
+        }
+
+        /* КАСКАДНА АНІМАЦІЯ  для тф */
+        @media (max-width: 767px) {
+            #mobile-menu li {
+                transform: translateY(-15px);
+                opacity: 0;
+                transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            }
+            #menu-toggle:checked ~ #mobile-menu li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            /* Ефект  */
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(1) { transition-delay: 0.10s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(2) { transition-delay: 0.15s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(3) { transition-delay: 0.20s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(4) { transition-delay: 0.25s; }
+        }
+
+        /* ПК ВЕРСІЯ */
+        @media (min-width: 768px) {
+            #mobile-menu {
+                max-height: none !important;
+                opacity: 1 !important;
+                overflow: visible;
+            }
+        }
+
+        /* АНІМАЦІЯ */
+        .hamburger span { transition: all 0.3s ease-in-out; transform-origin: center; }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="header-top">
-            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
-            <div class="header-actions">
-                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
-                <label for="menu-toggle" class="menu-burger">
-                    <span></span><span></span><span></span>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-surface-light dark:bg-surface-dark border-b-2 border-border-light dark:border-border-dark shadow-sm sticky top-0 z-50">
+        
+        <input type="checkbox" id="menu-toggle" class="hidden">
+        
+        <div class="flex-container max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold font-poppins"><a href="catalog.html" class="hover:opacity-80 transition-opacity">Генератор паролів</a></h1>
+            
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="px-4 py-2 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all bg-white dark:bg-slate-800">Змінити тему 🌓</button>
+                
+                <label for="menu-toggle" class="hamburger md:hidden flex flex-col gap-1.5 cursor-pointer p-2">
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
                 </label>
             </div>
         </div>
 
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
-        
-        <nav class="main-nav">
-            <ul>
-                <li><a href="catalog.html" class="active">Що таке генератор паролів?</a></li>
-                <li><a href="index.html">Згенерувати пароль</a></li>
-                <li><a href="check.html">Перевірити пароль</a></li>
-                <li><a href="contacts.html">Контакти</a></li>
+        <nav id="mobile-menu" class="w-full">
+            <ul class="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-4 md:gap-14 py-6 md:py-4 max-w-5xl mx-auto px-4">
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="catalog.html" class="inline-block md:block font-poppins font-bold text-primary border-b-2 border-primary pb-2">
+                        Що таке генератор паролів?
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="index.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Згенерувати пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="check.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Перевірити пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto md:text-left">
+                    <a href="contacts.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Контакти
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
-    
-    <div class="wrapper">
-        <main>
-            <section>
-                <h2>Про генератор паролів</h2>
-                <p><strong>Генератор паролів</strong> — це інструмент, який автоматично створює складні та унікальні комбінації символів (літер, цифр, спецсимволів) для максимального захисту ваших акаунтів від злому.</p>
-                
-                <h3>Захищайте ваш пароль!</h3>
-                <picture>
-                    <source srcset="password-lock.webp" type="image/webp">
-                    <img src="password-lock.png" alt="Блакитний замок із зашифрованим паролем">
-                </picture>
-                
-                <h4>Функціонал та переваги</h4>
-                <ul>
-                    <li><strong>Надійність:</strong> Паролі, створені випадковим чином за допомогою алгоритмів, стійкі до підбору.</li>
-                    <li><strong>Гнучкі налаштування:</strong> Ви можете самостійно обирати, з чого складатиметься пароль.</li>
-                    <li><strong>Унікальність:</strong> Дозволяє легко створювати абсолютно різні паролі.</li>
-                </ul>
-                
-                <h5>Чому важливо створювати надійні паролі?</h5>
-                <iframe width="100%" height="315" 
-                    src="https://www.youtube-nocookie.com/embed/YitHISP0Isk" 
-                    title="YouTube video player" 
-                    style="border: none; border-radius: 8px;" 
-                    loading="lazy" 
-                    srcdoc="<style>body{margin:0;height:100vh;background:#222;display:flex;justify-content:center;align-items:center;font-family:sans-serif;} a{color:#fff;text-decoration:none;font-size:22px;background:#c00;padding:15px 30px;border-radius:8px;transition:0.3s;} a:hover{background:#f00;}</style><a href='https://www.youtube-nocookie.com/embed/YitHISP0Isk?autoplay=1'>▶️ Навіщо надійний пароль?</a>" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
-                
-                <h6 style="margin-top: 20px;">Аудіо-інструкція: Як створити пароль</h6>
-                <audio controls style="display: block; width: 100%; margin-top: 10px;">
-                    <source src="audio-guide.mp3" type="audio/mpeg">
-                    Ваш браузер не підтримує аудіо елемент.
-                </audio>
+
+    <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        <main class="md:col-span-2 space-y-8">
+            <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h2 class="text-2xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-6 font-poppins">Про генератор паролів</h2>
+                <div class="prose dark:prose-invert max-w-none space-y-4">
+                    <p><strong>Генератор паролів</strong> — це інструмент, який автоматично створює складні та унікальні комбінації символів для захисту ваших акаунтів.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-6">Захищайте ваш пароль!</h3>
+                    <div class="my-6">
+                        <picture>
+                            <source srcset="password-lock.webp" type="image/webp">
+                            <img src="password-lock.png" alt="Замок" class="rounded-xl border border-border-light dark:border-border-dark shadow-md mx-auto">
+                        </picture>
+                    </div>
+
+                    <h4 class="text-lg font-semibold text-primary">Функціонал та переваги</h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-400">
+                        <li><strong>Надійність:</strong> Алгоритмічна випадковість.</li>
+                        <li><strong>Гнучкість:</strong> Самостійний вибір параметрів.</li>
+                        <li><strong>Унікальність:</strong> Кожен пароль неповторний.</li>
+                    </ul>
+
+                    <div class="mt-8 rounded-xl overflow-hidden shadow-lg border border-border-light dark:border-border-dark">
+                        <iframe class="w-full aspect-video" 
+                            src="https://www.youtube-nocookie.com/embed/YitHISP0Isk" 
+                            title="Навіщо надійний пароль?" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <h6 class="mt-6 text-sm uppercase tracking-widest text-slate-400 font-bold">Аудіо-інструкція</h6>
+                    <audio controls class="w-full mt-2">
+                        <source src="audio-guide.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
             </section>
 
-            <section class="catalog-grid">
-                <h2>Каталог: Приклади надійності</h2>
-                <div class="cards-container">
-                    <div class="card">
-                        <h3>Базовий</h3>
-                        <p>8 символів. Тільки літери.</p>
-                        <strong>xmplpswd</strong>
+            <section>
+                <h2 class="text-2xl font-bold mb-6 font-poppins">Каталог: Приклади надійності</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <div class="group bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500">
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-blue-500 transition-colors">Базовий</h3>
+                        <p class="text-sm text-slate-500 mb-4">8 символів. Тільки літери.</p>
+                        <div class="bg-background-light dark:bg-slate-800 p-3 rounded-lg text-center font-mono font-bold text-blue-600">xmplpswd</div>
                     </div>
-                    <div class="card">
-                        <h3>Стандарт</h3>
-                        <p>12 символів. Літери + цифри.</p>
-                        <strong>xMpl92psWd74</strong>
+
+                    <div class="group bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-l-4 border-l-yellow-500">
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-yellow-500 transition-colors">Стандарт</h3>
+                        <p class="text-sm text-slate-500 mb-4">12 символів. Літери + цифри.</p>
+                        <div class="bg-background-light dark:bg-slate-800 p-3 rounded-lg text-center font-mono font-bold text-yellow-600">xMpl92psWd74</div>
                     </div>
-                    <div class="card">
-                        <h3>Надійний</h3>
-                        <p>16 символів. Зі спецсимволами.</p>
-                        <strong>xMpl92!psWd#74kL</strong>
+
+                    <div class="group bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-l-4 border-l-emerald-500">
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-emerald-500 transition-colors">Надійний</h3>
+                        <p class="text-sm text-slate-500 mb-4">16 символів. Зі спецсимволами.</p>
+                        <div class="bg-background-light dark:bg-slate-800 p-3 rounded-lg text-center font-mono font-bold text-emerald-600">xMpl92!psWd#74kL</div>
                     </div>
-                    <div class="card">
-                        <h3>Ультра</h3>
-                        <p>24+ символів. Максимальний захист.</p>
-                        <strong>xM!92pWd#74kL&vB5*zQ^1mX</strong>
+
+                    <div class="group bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-l-4 border-l-purple-500">
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-purple-500 transition-colors">Ультра</h3>
+                        <p class="text-sm text-slate-500 mb-4">24+ символів. Максимально.</p>
+                        <div class="bg-background-light dark:bg-slate-800 p-3 rounded-lg text-center font-mono font-bold text-purple-600 text-xs">xM!92pWd#74kL&vB5*zQ^1mX</div>
                     </div>
+
                 </div>
             </section>
         </main>
 
-        <aside class="sidebar">
-            <h3>Корисні посилання</h3>
-            <ul>
-                <li><a href="https://cyberpolice.gov.ua/" target="_blank">Кіберполіція України</a></li>
-                <li><a href="https://haveibeenpwned.com/" target="_blank">Перевірка витоку паролів</a></li>
-            </ul>
+        <aside class="md:col-span-1 h-fit sticky top-24 space-y-6">
+            <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h3 class="text-xl font-bold mb-4 border-b border-border-light dark:border-border-dark pb-2 font-poppins">Корисні посилання</h3>
+                <ul class="space-y-3">
+                    <li><a href="https://cyberpolice.gov.ua/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Кіберполіція України</a></li>
+                    <li><a href="https://haveibeenpwned.com/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Перевірка витоку паролів</a></li>
+                </ul>
+            </div>
         </aside>
     </div>
 
-    <footer>
-        <div class="footer-content">
+    <footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark mt-auto py-6">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
             <p>&copy; 2026 Усі права захищені.</p>
-            <div class="socials">
-                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
-                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            <div class="flex gap-6 font-semibold">
+                <a href="https://t.me/nazareth_grrr" target="_blank" class="text-primary hover:underline">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank" class="text-primary hover:underline">GitHub</a>
             </div>
         </div>
     </footer>
-    
+
     <script>
-//скрипт для теми(працює разом з @media prefers-color-scheme
+        // ТЕМА
         const themeBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
         const currentTheme = localStorage.getItem('theme');
         
-        // збережений вибір користувача
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (currentTheme === 'light') {
-            document.body.classList.add('light-mode');
+        if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
         }
 
         themeBtn.addEventListener('click', function() {
-            // чи активна темна тема або через систему або через наш клас
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
-
-            if (isDark) {
-                // вмикаємо світлу
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                // вмикаємо темну
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            }
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
 </body>
