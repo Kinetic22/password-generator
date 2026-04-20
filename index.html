@@ -1,60 +1,158 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Генератор паролів з налаштуваннями складності. Лабораторна робота.">
-    <meta property="og:title" content="Генератор паролів">
-    <meta property="og:description" content="Інструмент для створення надійних паролів">
     <title>Генератор паролів</title>
-    <link rel="stylesheet" href="style.css">   <link rel="stylesheet" href="style3.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        accent: '#10b981',
+                        surface: { light: '#ffffff', dark: '#1e293b' },
+                        background: { light: '#f4f7f9', dark: '#0f172a' },
+                        border: { light: '#e2e8f0', dark: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* МОБІЛЬНЕ МЕНЮ: плавно розсуває контент вниз */
+        #mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            width: 100%;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        #menu-toggle:checked ~ #mobile-menu {
+            max-height: 350px;
+            opacity: 1;
+        }
+
+        /* КАСКАДНА АНІМАЦІЯ (тільки для телефонів) */
+        @media (max-width: 767px) {
+            #mobile-menu li {
+                transform: translateY(-15px);
+                opacity: 0;
+                transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            }
+            #menu-toggle:checked ~ #mobile-menu li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            /* Ефект драбинки */
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(1) { transition-delay: 0.10s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(2) { transition-delay: 0.15s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(3) { transition-delay: 0.20s; }
+            #menu-toggle:checked ~ #mobile-menu li:nth-child(4) { transition-delay: 0.25s; }
+        }
+
+        /* ПК ВЕРСІЯ: меню повертається в звичайний потік */
+        @media (min-width: 768px) {
+            #mobile-menu {
+                max-height: none !important;
+                opacity: 1 !important;
+                overflow: visible;
+            }
+        }
+
+        /* АНІМАЦІЯ ГАМБУРГЕРА -> ХРЕСТИК */
+        .hamburger span { transition: all 0.3s ease-in-out; transform-origin: center; }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    </style>
 </head>
-<body>
-<header>
-        <div class="header-top">
-            <h1><a href="catalog.html" class="logo-link">Генератор паролів</a></h1>
-            <div class="header-actions">
-                <button id="theme-toggle" class="theme-btn">Змінити тему 🌓</button>
-                <label for="menu-toggle" class="menu-burger">
-                    <span></span><span></span><span></span>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-surface-light dark:bg-surface-dark border-b-2 border-border-light dark:border-border-dark shadow-sm sticky top-0 z-50">
+        
+        <input type="checkbox" id="menu-toggle" class="hidden">
+        
+        <div class="flex-container max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold font-poppins"><a href="catalog.html" class="hover:opacity-80 transition-opacity">Генератор паролів</a></h1>
+            
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="px-4 py-2 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all bg-white dark:bg-slate-800">Змінити тему 🌓</button>
+                
+                <label for="menu-toggle" class="hamburger md:hidden flex flex-col gap-1.5 cursor-pointer p-2">
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
+                    <span class="w-6 h-0.5 bg-primary rounded block"></span>
                 </label>
             </div>
         </div>
 
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox" style="display: none;">
-        
-        <nav class="main-nav">
-            <ul>
-                <li><a href="catalog.html">Що таке генератор паролів?</a></li>
-                <li><a href="index.html" class="active">Згенерувати пароль</a></li>
-                <li><a href="check.html">Перевірити пароль</a></li>
-                <li><a href="contacts.html">Контакти</a></li>
+        <nav id="mobile-menu" class="w-full">
+            <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-14 py-6 md:py-4 max-w-5xl mx-auto px-4">
+                <li class="w-full text-center md:w-auto">
+                    <a href="catalog.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Що таке генератор паролів?
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="index.html" class="inline-block md:block font-poppins font-bold text-primary border-b-2 border-primary pb-2">
+                        Згенерувати пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="check.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Перевірити пароль
+                    </a>
+                </li>
+                <li class="w-full text-center md:w-auto">
+                    <a href="contacts.html" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Контакти
+                    </a>
+                </li>
             </ul>
         </nav>
-    </header>    
-    <div class="wrapper">
-        <main>
-            <section>
-                <h2>Налаштування пароля</h2>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <main class="md:col-span-2 space-y-8">
+            
+            <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h2 class="text-2xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-6">Налаштування пароля</h2>
+                
                 <form id="password-form">
-                    <fieldset>
-                        <legend>Параметри складності</legend>
+                    <fieldset class="border border-border-light dark:border-border-dark rounded-xl p-6 bg-background-light dark:bg-slate-800">
+                        <legend class="font-poppins font-semibold text-primary bg-surface-light dark:bg-surface-dark px-4 py-1 border border-border-light dark:border-border-dark rounded-lg">Параметри складності</legend>
                         
-                        <div class="form-group">
-                            <label for="pwd-length">Довжина (від 4 до 64):</label>
-                            <input type="number" id="pwd-length" name="length" min="4" max="64" value="12" required>
+                        <div class="flex flex-col mb-4">
+                            <label for="pwd-length" class="mb-2 font-medium">Довжина (від 4 до 64):</label>
+                            <input type="number" id="pwd-length" min="4" max="64" value="12" required class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                         </div>
 
-                        <div class="form-group checkbox-group">
-                            <label><input type="checkbox" id="lowercase" name="lowercase" checked> Малі літери</label>
-                            <label><input type="checkbox" id="uppercase" name="uppercase" checked> Великі літери</label>
-                            <label><input type="checkbox" id="numbers" name="numbers" checked> Цифри</label>
-                            <label><input type="checkbox" id="symbols" name="symbols"> Спецсимволи</label>
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" id="lowercase" checked class="mr-2 w-4 h-4 accent-primary"> Малі літери</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" id="uppercase" checked class="mr-2 w-4 h-4 accent-primary"> Великі літери</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" id="numbers" checked class="mr-2 w-4 h-4 accent-primary"> Цифри</label>
+                            <label class="flex items-center cursor-pointer"><input type="checkbox" id="symbols" class="mr-2 w-4 h-4 accent-primary"> Спецсимволи</label>
                         </div>
 
-                        <div class="form-group">
-                            <label for="preset">Пресет:</label>
-                            <select id="preset" name="preset">
+                        <div class="flex flex-col mb-6">
+                            <label for="preset" class="mb-2 font-medium">Пресет:</label>
+                            <select id="preset" class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
                                 <option value="custom">Власний варіант</option>
                                 <optgroup label="Стандартні">
                                     <option value="weak">Слабкий (8 символів)</option>
@@ -66,68 +164,71 @@
                             </select>
                         </div>
 
-                        <button type="button" id="generate-btn">Згенерувати пароль</button>
+                        <button type="button" id="generate-btn" class="w-full md:w-auto bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all active:scale-95 shadow-md">Згенерувати пароль</button>
                         
-                        <div id="result-container">
-                            Ваш пароль: <span id="generated-password"></span>
-                            <button type="button" id="copy-btn" class="copy-btn">Скопіювати</button>
+                        <div id="result-container" class="mt-6 p-6 bg-emerald-100/50 dark:bg-emerald-900/20 border-2 border-dashed border-accent rounded-xl text-center hidden">
+                            <p class="mb-2">Ваш пароль:</p>
+                            <span id="generated-password" class="block text-2xl md:text-3xl text-accent font-mono font-bold break-all tracking-widest mb-4"></span>
+                            <button type="button" id="copy-btn" class="px-6 py-2 text-primary border-2 border-primary rounded-lg hover:bg-primary/10 transition-colors font-medium">Скопіювати</button>
                         </div>
                     </fieldset>
                 </form>
             </section>
             
-            <section>
-                <h2>Порівняння надійності</h2>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
+            <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <h2 class="text-2xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-6">Порівняння надійності</h2>
+                <div class="overflow-x-auto rounded-xl border border-border-light dark:border-border-dark">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-primary text-white">
                             <tr>
-                                <th>Довжина</th>
-                                <th>Склад символів</th>
-                                <th>Орієнтовний час злому</th>
+                                <th class="p-4 font-semibold">Довжина</th>
+                                <th class="p-4 font-semibold">Склад символів</th>
+                                <th class="p-4 font-semibold">Орієнтовний час злому</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>8</td>
-                                <td>Тільки літери</td>
-                                <td>Миттєво</td>
+                        <tbody class="divide-y divide-border-light dark:divide-border-dark">
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                <td class="p-4">8</td>
+                                <td class="p-4">Тільки літери</td>
+                                <td class="p-4">Миттєво</td>
                             </tr>
-                            <tr>
-                                <td rowspan="2">12</td>
-                                <td>Літери + Цифри</td>
-                                <td>2 тижні</td>
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                <td class="p-4" rowspan="2">12</td>
+                                <td class="p-4 border-b border-border-light dark:border-border-dark">Літери + Цифри</td>
+                                <td class="p-4 border-b border-border-light dark:border-border-dark">2 тижні</td>
                             </tr>
-                            <tr>
-                                <td>Літери + Цифри + Символи</td>
-                                <td>34 000 років</td>
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                <td class="p-4">Літери + Цифри + Символи</td>
+                                <td class="p-4">34 000 років</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
+
         </main>
 
-        <aside class="sidebar">
-            <h3>Корисні посилання</h3>
-            <ul>
-                <li><a href="https://cyberpolice.gov.ua/" target="_blank">Кіберполіція України</a></li>
-                <li><a href="https://haveibeenpwned.com/" target="_blank">Перевірка витоку паролів</a></li>
+        <aside class="md:col-span-1 h-fit sticky top-24 bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+            <h3 class="text-xl font-bold mb-4 border-b border-border-light dark:border-border-dark pb-2">Корисні посилання</h3>
+            <ul class="space-y-3">
+                <li><a href="https://cyberpolice.gov.ua/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Кіберполіція України</a></li>
+                <li><a href="https://haveibeenpwned.com/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Перевірка витоку паролів</a></li>
             </ul>
         </aside>
     </div> 
     
-    <footer>
-        <div class="footer-content">
+    <footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark mt-auto py-6">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
             <p>&copy; 2026 Усі права захищені.</p>
-            <div class="socials">
-                <a href="https://t.me/nazareth_grrr" target="_blank">Telegram</a>
-                <a href="https://github.com/Kinetic22" target="_blank">GitHub</a>
+            <div class="flex gap-6 font-semibold">
+                <a href="https://t.me/nazareth_grrr" target="_blank" class="text-primary hover:underline">Telegram</a>
+                <a href="https://github.com/Kinetic22" target="_blank" class="text-primary hover:underline">GitHub</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Логіка генерації пароля залишена без змін
         const lengthInput = document.getElementById('pwd-length');
         const lowercaseCb = document.getElementById('lowercase');
         const uppercaseCb = document.getElementById('uppercase');
@@ -140,21 +241,15 @@
         const passwordDisplay = document.getElementById('generated-password');
         const copyBtn = document.getElementById('copy-btn');
 
-        //логіка зміни параметрів при пресеті
         presetSelect.addEventListener('change', function() {
             const preset = this.value;
-            
-            // всі чекбокси для кастомних налаштувань
-            lowercaseCb.disabled = false;
-            uppercaseCb.disabled = false;
-            numbersCb.disabled = false;
-            symbolsCb.disabled = false;
+            lowercaseCb.disabled = false; uppercaseCb.disabled = false;
+            numbersCb.disabled = false; symbolsCb.disabled = false;
 
             if (preset === "pin") {
                 lengthInput.value = 4;
                 lowercaseCb.checked = uppercaseCb.checked = symbolsCb.checked = false;
                 numbersCb.checked = true;
-                // блок зайве PIN
                 lowercaseCb.disabled = uppercaseCb.disabled = symbolsCb.disabled = true;
             } else if (preset === "weak") {
                 lengthInput.value = 8;
@@ -166,11 +261,9 @@
             }
         });
 
-        //логіка генерації пароля
         generateBtn.addEventListener('click', function() {
             const length = parseInt(lengthInput.value);
             let allowedChars = "";
-            
             if (lowercaseCb.checked) allowedChars += "abcdefghijklmnopqrstuvwxyz";
             if (uppercaseCb.checked) allowedChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             if (numbersCb.checked) allowedChars += "0123456789";
@@ -183,79 +276,44 @@
 
             let password = "";
             for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * allowedChars.length);
-                password += allowedChars[randomIndex];
+                password += allowedChars[Math.floor(Math.random() * allowedChars.length)];
             }
-            
             passwordDisplay.textContent = password;
-            resultContainer.style.display = 'block';
-            copyBtn.textContent = 'Скопіювати'; // Скидання тексту кнопки копіювання
+            resultContainer.classList.remove('hidden'); // Tailwind клас замість style.display
+            copyBtn.textContent = 'Скопіювати';
         });
 
-        // логіка копіювання
         copyBtn.addEventListener('click', function() {
             const password = passwordDisplay.textContent;
             if (!password) return;
-
             const showSuccess = () => {
                 copyBtn.textContent = 'Скопійовано!';
                 setTimeout(() => { copyBtn.textContent = 'Скопіювати'; }, 2000);
             };
-
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(password)
-                    .then(showSuccess)
-                    .catch(() => fallbackCopyTextToClipboard(password));
+                navigator.clipboard.writeText(password).then(showSuccess).catch(() => prompt("Скопіюйте вручну:", password));
             } else {
-                fallbackCopyTextToClipboard(password);
-            }
-
-            function fallbackCopyTextToClipboard(text) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.top = "0";
-                textArea.style.left = "0";
-                textArea.style.position = "fixed";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showSuccess();
-                } catch (err) {
-                    console.error('Не вдалося скопіювати', err);
-                    alert("Ваш браузер заблокував копіювання. Виділіть пароль вручну.");
-                }
-                document.body.removeChild(textArea);
+                prompt("Скопіюйте вручну:", password);
             }
         });
 
-//скрипт для теми(працює разом з @media prefers-color-scheme
+        // ОНОВЛЕНА ЛОГІКА ТЕМИ ДЛЯ TAILWIND
         const themeBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement; // Tailwind керується класом dark на тезі <html>
         const currentTheme = localStorage.getItem('theme');
         
-        // збережений вибір користувача
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (currentTheme === 'light') {
-            document.body.classList.add('light-mode');
+        if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
         }
 
         themeBtn.addEventListener('click', function() {
-            // чи активна темна тема або через систему або через наш клас
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isDark = document.body.classList.contains('dark-mode') || (isSystemDark && !document.body.classList.contains('light-mode'));
-
-            if (isDark) {
-                // вмикаємо світлу
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                // вмикаємо темну
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
                 localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
             }
         });
     </script>
