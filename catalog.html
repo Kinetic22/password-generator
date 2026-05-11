@@ -127,7 +127,10 @@
     </header>
 
     <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        
         <main class="md:col-span-2 space-y-8">
+            
+            <!-- Про генератор паролів -->
             <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
                 <h2 class="text-2xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-6 font-poppins">Про генератор паролів</h2>
                 <div class="prose dark:prose-invert max-w-none space-y-4">
@@ -163,8 +166,9 @@
                 </div>
             </section>
 
+            <!-- Статичні приклади -->
             <section>
-                <h2 class="text-2xl font-bold mb-6 font-poppins">Каталог: Приклади надійності</h2>
+                <h2 class="text-2xl font-bold mb-6 font-poppins">Приклади надійності</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     
                     <div class="group bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500">
@@ -193,16 +197,52 @@
 
                 </div>
             </section>
+
+            <!-- Динамічний каталог послуг -->
+            <section class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <h2 class="text-2xl font-bold font-poppins">Наші послуги</h2>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <select id="category-filter" class="p-2 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-slate-700 text-sm outline-none cursor-pointer">
+                            <option value="all">Всі категорії</option>
+                        </select>
+                        
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Швидкий пошук ціни..." autocomplete="off" 
+                                class="w-full sm:w-48 p-2 text-sm rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-slate-700 outline-none focus:border-primary">
+                            <div id="search-result" class="absolute top-full mt-1 left-0 w-full whitespace-nowrap"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="catalog-body" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                </div>
+            </section>
+
         </main>
 
         <aside class="md:col-span-1 h-fit sticky top-24 space-y-6">
+            
+            <!--Кошик -->
+            <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark flex flex-col max-h-[60vh]">
+                <h3 class="text-xl font-bold mb-4 border-b border-border-light dark:border-border-dark pb-2 font-poppins flex items-center justify-between">
+                    Кошик 🛒
+                </h3>
+                <div id="cart-container" class="space-y-4 overflow-y-auto pr-2 flex-1">
+                    <p class="text-sm text-slate-500 text-center py-4 empty-cart-msg">Кошик порожній</p>
+                </div>
+            </div>
+
+            <!-- Корисні посилання -->
             <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
                 <h3 class="text-xl font-bold mb-4 border-b border-border-light dark:border-border-dark pb-2 font-poppins">Корисні посилання</h3>
                 <ul class="space-y-3">
                     <li><a href="https://cyberpolice.gov.ua/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Кіберполіція України</a></li>
-                    <li><a href="https://haveibeenpwned.com/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Перевірка витоку паролів</a></li>
+                    <li><a href="https://haveibeenpwned.com/" target="_blank" class="text-primary dark:text-blue-400 font-medium hover:underline hover:translate-x-1 inline-block transition-all">Перевірка витоку</a></li>
                 </ul>
             </div>
+            
         </aside>
     </div>
 
@@ -231,5 +271,7 @@
             localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
