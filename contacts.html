@@ -133,7 +133,7 @@
                 <h2 class="text-3xl font-bold border-b border-border-light dark:border-border-dark pb-3 mb-4 font-poppins">Зв'яжіться з нами</h2>
                 <p class="text-slate-500 dark:text-slate-400 mb-8 text-lg">Якщо у вас виникли питання щодо роботи генератора паролів або пропозиції щодо покращення, заповніть форму нижче.</p>
                 
-                <form action="#" method="POST" class="space-y-6">
+                <form id="contact-form" action="#" method="POST" class="space-y-6">
                     <fieldset class="border border-border-light dark:border-border-dark rounded-xl p-6 md:p-8 bg-background-light dark:bg-slate-800 shadow-inner">
                         <legend class="font-poppins font-semibold text-primary bg-surface-light dark:bg-surface-dark px-4 py-1 border border-border-light dark:border-border-dark rounded-lg">Форма зворотного зв'язку</legend>
                         
@@ -230,5 +230,6 @@
             localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
+<script src="script.js"></script>
 </body>
 </html>
