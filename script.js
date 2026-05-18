@@ -37,6 +37,7 @@ function checkPrice(serviceName) {
     }
     return null;
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
     //ЕЛЕМЕНТИ СТОРІНКИ "КАТАЛОГ"
@@ -169,18 +170,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.toggle('ring-primary/20');
             }
         });
-    }
+    } 
 
-    //Обробка подій форми 
+    //ЛР №5: Інтерактивні форми та валідація даних
     const contactForm = document.getElementById('contact-form');
+    
     if (contactForm) {
+        const messageField = document.getElementById('message');
+
+        if (messageField) {
+            messageField.addEventListener('input', () => {
+                messageField.setCustomValidity('');
+            });
+        }
+
         contactForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Запобігаємо перезавантаженню
+            // Завдання 3. Запобігаємо перезавантаженню сторінки
+            event.preventDefault(); 
             
-            const name = document.getElementById('user-name').value;
-            alert(`Дякуємо, ${name}! Ваше повідомлення успішно надіслано. Сторінка не перезавантажилась.`);
-            
-            contactForm.reset();
+            // Завдання 3.3: Реалізація Custom Validation
+            const messageText = messageField.value.toLowerCase();
+            if (messageText.includes('спам') || messageText.includes('реклама')) {
+                messageField.setCustomValidity('Будь ласка, уникайте слів "спам" та "реклама" у вашому повідомленні.');
+            } else {
+                messageField.setCustomValidity(''); 
+            }
+
+            if (contactForm.checkValidity()) {
+                
+                // Завдання 3.4: Збір даних у форматі FormData
+                const formData = new FormData(contactForm);
+                const formObject = Object.fromEntries(formData.entries());
+
+                // Завдання 4.1: Вивід об'єкта в консоль
+                console.log('✅ Дані готові до відправки на сервер:', formObject);
+                
+                alert('Повідомлення успішно відправлено! Перевірте консоль розробника (F12).');
+                
+                contactForm.reset();
+            } else {
+                contactForm.reportValidity();
+            }
         });
     }
-});
+}); 
