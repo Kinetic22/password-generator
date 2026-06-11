@@ -29,7 +29,7 @@
             }
         }
     </script>
-
+ 
     <style>
         /* МОБІЛЬНЕ МЕНЮ */
         #mobile-menu {
@@ -44,7 +44,7 @@
             max-height: 350px;
             opacity: 1;
         }
-
+ 
         /* КАСКАДНА АНІМАЦІЯ */
         @media (max-width: 767px) {
             #mobile-menu li {
@@ -62,7 +62,7 @@
             #menu-toggle:checked ~ #mobile-menu li:nth-child(3) { transition-delay: 0.20s; }
             #menu-toggle:checked ~ #mobile-menu li:nth-child(4) { transition-delay: 0.25s; }
         }
-
+ 
         /* ПК ВЕРСІЯ */
         @media (min-width: 768px) {
             #mobile-menu {
@@ -71,7 +71,7 @@
                 overflow: visible;
             }
         }
-
+ 
         /* АНІМАЦІЯ */
         .hamburger span { transition: all 0.3s ease-in-out; transform-origin: center; }
         #menu-toggle:checked ~ .flex-container .hamburger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -90,17 +90,17 @@
             pointer-events: none;
             transition: all 0.3s;
         }
-
+ 
         .input-wrapper:has(input:not(:placeholder-shown):valid)::after,
         .input-wrapper:has(textarea:not(:placeholder-shown):valid)::after {
             content: '✅';
         }
-
+ 
         .input-wrapper:has(input:not(:placeholder-shown):invalid)::after,
         .input-wrapper:has(textarea:not(:placeholder-shown):invalid)::after {
             content: '❌';
         }
-
+ 
         .input-wrapper input:not(:placeholder-shown):valid,
         .input-wrapper textarea:not(:placeholder-shown):valid {
             border-color: #10b981 !important; 
@@ -111,9 +111,9 @@
         }
     </style>
 </head>
-
+ 
 <body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
-
+ 
     <header class="bg-surface-light dark:bg-surface-dark border-b-2 border-border-light dark:border-border-dark shadow-sm sticky top-0 z-50">
         
         <input type="checkbox" id="menu-toggle" class="hidden">
@@ -131,7 +131,7 @@
                 </label>
             </div>
         </div>
-
+ 
         <nav id="mobile-menu" class="w-full">
             <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-14 py-6 md:py-4 max-w-5xl mx-auto px-4">
                 <li class="w-full text-center md:w-auto">
@@ -154,10 +154,16 @@
                         Контакти
                     </a>
                 </li>
+                <!-- ЗАВДАННЯ 3: Індикатор кошика -->
+                <li class="w-full text-center md:w-auto">
+                    <a href="catalog.html" id="cart-badge" class="inline-block md:block font-poppins font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-2 border-b-2 border-transparent hover:border-primary">
+                        Кошик
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
-
+ 
     <div class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <main class="md:col-span-2 space-y-8">
@@ -184,7 +190,7 @@
                                     class="w-full p-3 rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder-slate-400">
                             </div>
                         </div>
-
+ 
                         <!-- 3. Поле "Телефон" -->
                         <div class="flex flex-col gap-2 mb-6 input-wrapper">
                             <label for="user-phone" class="font-medium text-slate-700 dark:text-slate-300">Телефон (+380...):</label>
@@ -210,7 +216,7 @@
                 </form>
             </section>
         </main>
-
+ 
         <aside class="md:col-span-1 h-fit sticky top-24 space-y-6">
             <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-border-light dark:border-border-dark">
                 <h3 class="text-xl font-bold mb-6 border-b border-border-light dark:border-border-dark pb-2 font-poppins">Інші канали зв'язку</h3>
@@ -261,12 +267,14 @@
         if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         }
-
+ 
         themeBtn.addEventListener('click', function() {
             html.classList.toggle('dark');
             localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
 <script src="script.js"></script>
+    <!-- ПР3: CartManager badge -->
+    <script src="pr3.js"></script>
 </body>
 </html>
